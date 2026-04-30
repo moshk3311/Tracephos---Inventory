@@ -508,9 +508,8 @@
       <div class="logo-sub">דשן מגורען</div>
     </div>
   </div>
-  <div class="user-info" id="user-info" style="display:none;">
-    <span class="user-email" id="user-email"></span>
-    <button class="logout-btn" onclick="doLogout()">יציאה</button>
+  <div class="user-info" id="user-info" style="display:flex;">
+    <span class="user-email" id="user-email">Tracephos</span>
   </div>
   <nav class="desktop-nav">
     <button class="active" onclick="showPage('dashboard',this)">📊 דשבורד</button>
@@ -741,7 +740,7 @@
 </main>
 
 <!-- LOGIN OVERLAY -->
-<div class="login-overlay" id="login-overlay">
+<div class="login-overlay" id="login-overlay" style="display:none;">
   <div class="login-box">
     <div class="login-logo">
       <div class="login-logo-icon">🌿</div>
@@ -1162,19 +1161,7 @@ async function doLogout() {
 }
 
 // ─── INIT ─────────────────────────────────────────────────────
-// Check if already logged in
-(async () => {
-  const { data: { session } } = await db.auth.getSession();
-  if (session?.user) {
-    onLoginSuccess(session.user);
-  }
-  // listen for auth changes
-  db.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_OUT') {
-      document.getElementById('login-overlay').style.display = 'flex';
-    }
-  });
-})();
+loadDashboard();
 </script>
 </body>
 </html>
